@@ -1,38 +1,49 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Container, Grid, CircularProgress, Typography } from "@mui/material";
+import { Container, Grid, CircularProgress, Typography, Button } from "@mui/material";
 import { Product } from "./types/Product";
 import { fetchProducts } from "./api/fetchProducts";
 import ProductList from "./components/ProductList";
 import ProductDetails from "./components/ProductDetails";
 
 const App: React.FC = () => {
-  const {
-    data: products,
-    error,
-    isLoading,
-  } = useQuery("products", fetchProducts, {
-    staleTime: 5 * 60 * 1000, // Cache the data for 5 minutes
-    refetchOnWindowFocus: false, // Don't refetch when window is focused
-  });
+  const [page, setPage] = useState(1);
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Use useCallback to memoize the click handler to prevent unnecessary re-renders
-  const handleProductClick = useCallback((product: Product) => {
-    setSelectedProduct(product);
-  }, []);
+  const { isLoading, error, refetch } = useQuery(
+    ["products", page], // Key includes page for pagination
+    () => fetchProducts(page, 10), // Fetch 10 products per page
+    {
+      keepPreviousData: true, // Keep previous data during refetch
+      onSuccess: (newProducts) => {
+        setProducts((prevProducts) => [...prevProducts, ...newProducts]); // Append new products to the list
+      },
+      refetchOnWindowFocus: false, // Prevent refetching on window focus
+    }
+  );
 
-  if (isLoading) return <CircularProgress />;
+  const loadMoreProducts = () => {
+    setPage((prevPage) => prevPage + 1);
+    refetch();
+  };
+
   if (error) return <Typography>Error loading products</Typography>;
 
   return (
     <Container>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <ProductList products={products} onProductClick={handleProductClick} />
+        <Grid item xs={12} md={6} style={{ height: "100vh", overflowY: "scroll" }}>
+          <ProductList products={products} onProductClick={setSelectedProduct} />
+          {isLoading && <CircularProgress />}
+          <Button variant="contained" onClick={loadMoreProducts} disabled={isLoading} style={{ marginTop: "16px" }}>
+            Load More Products
+          </Button>
         </Grid>
         <Grid item xs={12} md={6}>
-          <ProductDetails product={selectedProduct} />
+          <div style={{ position: "sticky", top: 0 }}>
+            <ProductDetails product={selectedProduct} />
+          </div>
         </Grid>
       </Grid>
     </Container>
