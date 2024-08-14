@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+# Online Store - React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple Online Store application built with React, utilizing Material-UI for styling, and React Query for data fetching. The application allows users to browse a list of products and view detailed information about each product when selected.
 
-## Available Scripts
+## Features
+
+- **Master-Detail View**: Displays a list of products, and when clicked, shows product details on the right side.
+- **Responsive Design**: The app is fully responsive, working seamlessly on both desktop and mobile devices.
+- **API Integration**: Fetches product data from Fake Store API using Axios and React Query for efficient data fetching and caching.
+- **Material-UI**: Provides modern UI components and layouts.
+- **React Query**: Manages server state, caching, and background data loading.
+
+## Technologies Used
+
+- **React**: Frontend library for building the user interface.
+- **Material-UI**: Component library for styling and responsive design.
+- **React Query**: For managing data fetching and state.
+- **Axios**: HTTP client to make API requests.
+- **TypeScript**: Ensures type safety and better code organization.
+
+## Installation and Setup
 
 In the project directory, you can run:
 
-### `npm start`
+### Install dependencies
+`npm install`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Run the application
+`npm start`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This will start the development server. Open http://localhost:3000 in your browser to view the application.
 
-### `npm test`
+### How to Use
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Browse Products**: On the left side of the page, you will see a list of products. You can scroll through the list to explore more items.
+- **View Details**: Click on any product in the list to view its details on the right side of the page. The details include the product's image, title, description, price, category, and rating.
+- **Responsive Layout**: The layout adapts to different screen sizes, ensuring a user-friendly experience on mobile and desktop.
